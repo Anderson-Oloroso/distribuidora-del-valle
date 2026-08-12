@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS clientes(
  id_cliente INT PRIMARY KEY AUTO_INCREMENT,
  nombre VARCHAR(30) NOT NULL,
  apellido VARCHAR(30) NOT NULL,
- dpi INT(13) NOT NULL CHECK(length(dpi) = 13),
+ dpi VARCHAR(13) NOT NULL CHECK(length(dpi) = 13),
  direccion VARCHAR(200) NOT NULL,
  telefono INT(8) NOT NULL,
  correo_electronico VARCHAR(100)
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS encargados(
  id_encargado INT PRIMARY KEY AUTO_INCREMENT,
  nombre_encargado VARCHAR(30) NOT NULL,
  apellido_encargado VARCHAR(30) NOT NULL,
- dpi INT(13) NOT NULL CHECK(length(dpi) = 13)
+ dpi VARCHAR(13) NOT NULL CHECK(length(dpi) = 13)
 )ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS sedes(
