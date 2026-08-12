@@ -17,7 +17,10 @@ Diseñar e implementar una base de datos relacional en MySQL que soporte la gest
   * *Datos requeridos:* id_cliente, nombre, apellido, identificacion, direccion, telefono, correo_electronico
 
 * **Sedes:** Llevará el control de todas las sedes de la distribuidora y de posibles dependiendo de la expansión de la empresa .
-  * *Datos requeridos:* id_sede, nombre_sede, ubicacion, capacidad_almacenamiento, encargado.
+  * *Datos requeridos:* id_sede, nombre_sede, ubicacion, capacidad_almacenamiento, id_encargado.
+
+  * **Encargados:** Llevará el control de todos los encargados de las sedes.
+  * *Datos requeridos:* id_encargado, nombre, apellido, dpi.
 
 * **Pedidos:** Será la tabla principal donde se unirán las sedes, clientes y sus productos, para llevar un mejor control .
   * *Datos requeridos:* id_pedido, fecha_pedido, id_cliente, id_sede, total_sin_iva, total_con_iva.
@@ -35,6 +38,8 @@ Diseñar e implementar una base de datos relacional en MySQL que soporte la gest
 * **Pedido - detalle_pedido (1:N):** Un pedido puede tener múltiples detalles de productos, pero cada fila de detalle pertenece a un solo pedido. 
 
 * **Sedes - Pedidos (1:N):** Una sede puede despachar múltiples pedidos, pero un pedido no puede aparecer en múltiples sedes.
+
+* **Sedes - Encargados (1:N):** Una sede puede ser gestionada por un encargado o varios de manera temporal, pero un encargado no puede hacerse cargo de gestionar múltiples sedes.
 
 * **Clientes - Pedidos (1:N):** Un cliente puede realizar múltiples pedidos, pero dichos pedidos siempre harán referencia al cliente que los solicitó.
 
@@ -64,5 +69,8 @@ Diseñar e implementar una base de datos relacional en MySQL que soporte la gest
   - **Vista de productos con bajo stock:** Lista productos con stock_actual <= stock_minimo.
   - **Vista de clientes activos:** Muestra clientes con al menos un pedido registrado.
 
-
-
+## 📌 Supuestos 
+  - EL dpi debe contiene 13 dígitos
+  - Los precios se manejarán en Quetzales.
+  - La capacidad de almacenaniento de las sedes será en unidades.
+  
