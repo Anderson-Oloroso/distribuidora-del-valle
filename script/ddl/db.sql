@@ -69,3 +69,15 @@ CREATE INDEX idx_nombre_cliente ON clientes(nombre, apellido);
 CREATE INDEX idx_categoria ON categorias(nombre_categoria);
 CREATE INDEX idx_pedidos_fecha ON pedidos(fecha_pedido);
 CREATE INDEX idx_sedes_productos ON sedes(nombre_sede);
+
+-- =====================================================
+-- CREATE TABLE auditoria_precios
+-- =====================================================
+CREATE TABLE IF NOT EXISTS auditoria_precios(
+ id_ap INT PRIMARY KEY AUTO_INCREMENT,
+ id_producto INT NOT NULL,
+ precio_anterior FLOAT,
+ precio_actual FLOAT,
+ fecha_act TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ CONSTRAINT fk_productos_up FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+)ENGINE=InnoDB;
