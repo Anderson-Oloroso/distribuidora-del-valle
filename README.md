@@ -135,6 +135,26 @@ La base de datos incluye:
 - **Triggers:** Reglas automáticas para mantener integridad de datos
 - **Vistas:** Acceso simplificado y seguro a la información
 
+## � Usuarios y roles
+
+Se han creado **3 usuarios principales** con permisos específicos:
+
+| Usuario | Rol | Responsabilidades |
+|---------|-----|------------------|
+| Agente de ventas | Sales Agent | Gestión de ventas y clientes |
+| Gestor de inventarios | Inventory Manager | Control de inventario y stock |
+| Auditor fiscal | Fiscal Auditor | Revisión y auditoría de datos |
+
+### Crear conexiones para los usuarios
+
+Después de ejecutar el script de usuarios (`script/dcl/users.sql`), es necesario crear las 3 conexiones en MySQL Workbench para cada usuario:
+
+1. **Agente de ventas** - Gestiona ventas y clientes
+2. **Gestor de inventarios** - Controla inventario y stock
+3. **Auditor fiscal** - Realiza revisión y auditoría de datos
+
+Cada usuario tiene permisos limitados según su rol, garantizando seguridad y segregación de funciones.
+
 ## 👨‍💻 Autor
 - **Henrik Anderson Oloroso García**
 
