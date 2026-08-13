@@ -12,3 +12,14 @@ GRANT SELECT ON distribuidora_del_valle.sedes TO 'agente_ventas'@'localhost';
 
 FLUSH PRIVILEGES;
 
+-- =============================================
+-- Crear usuario de gestor de inventario
+-- =============================================
+CREATE USER 'gestor_inventario'@'localhost' IDENTIFIED BY 'GesTor_Inv@456';
+
+GRANT SELECT, INSERT, UPDATE ON distribuidora_del_valle.productos TO 'gestor_inventario'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON distribuidora_del_valle.categorias TO 'gestor_inventario'@'localhost';
+
+GRANT SELECT ON distribuidora_del_valle.sedes TO 'gestor_inventario'@'localhost';
+
+FLUSH PRIVILEGES;
