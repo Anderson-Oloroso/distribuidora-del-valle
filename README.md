@@ -3,12 +3,14 @@
 ## Contenido
 
 - [📋 Descripción](#-descripción)
-- [📋 Requisitos](#-requisitos)
-- [🚀 Instalación y ejecución](#-instalación-y-ejecución)
+- [� Modelo Entidad-Relación](#-modelo-entidad-relación)
 - [🛠️ Tecnologías](#️-tecnologías)
-- [📁 Estructura del proyecto](#-estructura-del-proyecto)
 - [🗄️ Estructura de la base de datos](#️-estructura-de-la-base-de-datos)
+- [⚙️ Funciones y Triggers](#️-funciones-y-triggers)
+- [📊 Ejemplos de Consultas](#-ejemplos-de-consultas)
+- [🚀 Recomendaciones para Expansión](#-recomendaciones-para-expansión)
 - [👥 Usuarios y roles](#-usuarios-y-roles)
+- [📁 Estructura del proyecto](#-estructura-del-proyecto)
 - [👨‍💻 Autor](#-autor)
 
 ## 📋 Descripción
@@ -24,63 +26,13 @@ Se implementó un modelo de datos normalizado capaz de almacenar, gestionar y pr
 - Triggers para mantener integridad de datos
 - Vistas para acceso simplificado a la información
 
-## 📋 Requisitos
+## � Modelo Entidad-Relación
 
-- MySQL Server 
-- MySQL Workbench o cliente SQL compatible
-- Archivos SQL incluidos en el repositorio
-- Git/Github (para clonar el repositorio)
+Para visualizar el diagrama completo del Modelo Entidad-Relación, consulta:
 
-## 🚀 Instalación y ejecución
+📁 [**diagrams/MER/drwio_distribuidora_del_valle.svg**](diagrams/MER/drwio_distribuidora_del_valle.svg)
 
-### ⚙️ Pasos de instalación
-
-1. **Clonar el repositorio:**
-   ```bash
-   git clone https://github.com/Anderson-Oloroso/distribuidora-del-valle.git
-   cd distribuidora-del-valle
-   ```
-
-2. **Abrir MySQL Workbench** o tu cliente SQL preferido
-
-3. **Ejecutar los scripts en el siguiente orden:**
-
-   **a) Crear la base de datos y tablas:**
-   ```sql
-   script/ddl/db.sql
-   ```
-
-   **b) Insertar datos iniciales:**
-   ```sql
-   script/dml/insert.sql
-   ```
-
-   **c) Crear funciones almacenadas:**
-   ```sql
-   script/ddl/functions.sql
-   ```
-
-   **d) Crear triggers:**
-   ```sql
-   script/ddl/triggers.sql
-   ```
-
-   **e) Crear vistas:**
-   ```sql
-   script/ddl/views.sql
-   ```
-
-   **f) Crear usuarios y permisos:**
-   ```sql
-   script/dcl/users.sql
-   ```
-
-4. **Ejecutar consultas de prueba:**
-   ```sql
-   script/dql/query.sql
-   ```
-
-5. **Verificar:** Comprueba que la base de datos, tablas, funciones y vistas se crearon correctamente.
+El modelo incluye 8 entidades principales: Categorías, Productos, Clientes, Sedes, Encargados, Pedidos, Detalle_Pedidos y Auditoria_Precios, todas relacionadas bajo el patrón 1:N normalizado en 3FN.
 
 ## 🛠️ Tecnologías
 
@@ -90,6 +42,63 @@ Se implementó un modelo de datos normalizado capaz de almacenar, gestionar y pr
 - **Herramientas de diseño:** Draw.io, DrawDB
 - **Control de versiones:** Git / Github
 - **Editor:** Visual Studio Code
+
+## 🗄️ Estructura de la base de datos
+
+La base de datos incluye:
+- **Tablas:** Estructura normalizada en 3FN
+- **Funciones:** Procedimientos almacenados para operaciones especializadas
+- **Triggers:** Reglas automáticas para mantener integridad de datos
+- **Vistas:** Acceso simplificado y seguro a la información
+## ⚙️ Funciones y Triggers
+
+### Funciones Almacenadas
+
+1. **`fn_calcular_total_con_iva()`** - Calcula el total con IVA (12%) a partir de los subtotales de un pedido
+2. **`fn_validar_stock()`** - Valida la disponibilidad de stock antes de confirmar una venta
+
+📄 [**Ver especificación completa en analysis/requirements.md**](analysis/requirements.md#1-funciones-requeridas)
+📝 [**Ver código fuente en script/ddl/functions.sql**](script/ddl/functions.sql)
+
+### Triggers
+
+1. **`tr_actualizar_stock`** - Descuenta automáticamente el stock al insertar un detalle de pedido
+2. **`tr_auditar_cambio_precio`** - Registra cambios de precios en la tabla de auditoría
+
+📄 [**Ver especificación completa en analysis/requirements.md**](analysis/requirements.md#2-triggers-requeridos)
+📝 [**Ver código fuente en script/ddl/triggers.sql**](script/ddl/triggers.sql)
+
+## 📊 Ejemplos de Consultas
+
+Se han implementado 8 consultas SQL optimizadas para análisis y reportes del negocio:
+
+📸 [**Ver resultados y capturas en evidences/queries.png**](evidences/queries.png)
+
+**Consultas principales:**
+1. Productos con stock por debajo del mínimo
+2. Consultar pedidos entre dos fechas (BETWEEN)
+3. Productos más vendidos (JOIN + GROUP BY)
+4. Clientes y cantidad de pedidos realizados
+5. Buscar clientes por nombre parcial (LIKE)
+6. Productos de categorías específicas (IN)
+7. Cliente con mayor número de pedidos (Subconsulta)
+8. Pedidos y totales agrupados por sede
+
+## 🚀 Recomendaciones para Expansión
+
+En base al nuevo modelado de datos, este modelo queda excelente para sus planes de expansión en todo el país debido a que la normalización implementada tiene la capacidad de registrar nuevas sedes, nuevos usuarios, y los pedidos sin necesidad de hacer cambios adicionales y una nueva refactorización de la base de datos. La estructura actual permite agregar nuevas sucursales, ampliar la cobertura geográfica y escalar operaciones manteniendo la integridad referencial y sin comprometer el rendimiento del sistema.
+
+## � Usuarios y roles
+
+Se han creado **3 usuarios principales** con permisos específicos:
+
+| Usuario | Rol | Responsabilidades |
+|---------|-----|------------------|
+| Agente de ventas | Sales Agent | Gestión de ventas y clientes |
+| Gestor de inventarios | Inventory Manager | Control de inventario y stock |
+| Auditor fiscal | Fiscal Auditor | Revisión y auditoría de datos |
+
+Cada usuario tiene permisos limitados según su rol, garantizando seguridad y segregación de funciones.
 
 ## 📁 Estructura del proyecto
 
@@ -126,34 +135,6 @@ distribuidora-del-valle/
 │       └── query.sql                # Consultas de prueba
 └── README.md                         # Este archivo
 ```
-
-## 🗄️ Estructura de la base de datos
-
-La base de datos incluye:
-- **Tablas:** Estructura normalizada en 3FN
-- **Funciones:** Procedimientos almacenados para operaciones especializadas
-- **Triggers:** Reglas automáticas para mantener integridad de datos
-- **Vistas:** Acceso simplificado y seguro a la información
-
-## � Usuarios y roles
-
-Se han creado **3 usuarios principales** con permisos específicos:
-
-| Usuario | Rol | Responsabilidades |
-|---------|-----|------------------|
-| Agente de ventas | Sales Agent | Gestión de ventas y clientes |
-| Gestor de inventarios | Inventory Manager | Control de inventario y stock |
-| Auditor fiscal | Fiscal Auditor | Revisión y auditoría de datos |
-
-### Crear conexiones para los usuarios
-
-Después de ejecutar el script de usuarios (`script/dcl/users.sql`), es necesario crear las 3 conexiones en MySQL Workbench para cada usuario:
-
-1. **Agente de ventas** - Gestiona ventas y clientes
-2. **Gestor de inventarios** - Controla inventario y stock
-3. **Auditor fiscal** - Realiza revisión y auditoría de datos
-
-Cada usuario tiene permisos limitados según su rol, garantizando seguridad y segregación de funciones.
 
 ## 👨‍💻 Autor
 - **Henrik Anderson Oloroso García**
