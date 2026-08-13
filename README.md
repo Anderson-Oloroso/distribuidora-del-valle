@@ -155,7 +155,7 @@ Después de ejecutar el script de usuarios (`script/dcl/users.sql`), es necesari
 
 Cada usuario tiene permisos limitados según su rol, garantizando seguridad y segregación de funciones.
 
-## �👨‍💻 Autor
+## 👨‍💻 Autor
 - **Henrik Anderson Oloroso García**
 
 ### Ultima modificación:
