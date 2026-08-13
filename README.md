@@ -158,4 +158,4 @@ Cada usuario tiene permisos limitados según su rol, garantizando seguridad y se
 ## 👨‍💻 Autor
 - **Henrik Anderson Oloroso García**
 
-### Ultima modificación:
+### Ultima modificación: _13/08/2026_
