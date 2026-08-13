@@ -8,7 +8,8 @@ Diseñar e implementar una base de datos relacional en MySQL que soporte la gest
 * **Productos:** Aquí se almacenará el inventario total de gaseosas de todas las sedes.
   * *Datos requeridos:* id_producto, nombre, id_categoria, precio, volumen_ml, stock_actual, stock_minimo.
 
-  *Tendrá una tabla llamada auditoria_precios*: Se almacenarán los registros de actualización de precios y de stock.
+* **auditoria_precios:** Se almacenarán los registros de actualización de precios.
+  * *Datos requeridos:* id_ap, id_producto, precio_anterior, precio_actual, fecha_act.
 
 * **Categoria:** Aqui estarán alamcenadas las categorias registradas para las gaseosas .
   * *Datos requeridos:* id_categoria, id_gaseosa, nombre_categoria
@@ -35,6 +36,8 @@ Diseñar e implementar una base de datos relacional en MySQL que soporte la gest
 
 * **Productos - detalle_pedido (1:N):** Un producto puede aparecer en múltiples registros de detalle, pero cada fila de detalle hace referencia a un solo producto.
 
+* ****Productos - auditoria_precios (1:N):** En la tabla auditoria pueden estar guardados varios registros de actualizaciones de precios de un mismo producto, pero un registro de auditoria no puede alamcencar más de un producto por registro.
+
 * **Pedido - detalle_pedido (1:N):** Un pedido puede tener múltiples detalles de productos, pero cada fila de detalle pertenece a un solo pedido. 
 
 * **Sedes - Pedidos (1:N):** Una sede puede despachar múltiples pedidos, pero un pedido no puede aparecer en múltiples sedes.
@@ -46,7 +49,7 @@ Diseñar e implementar una base de datos relacional en MySQL que soporte la gest
 ## 🛑 4. Reglas de Negocio
 
 **1. FUNCIONES REQUERIDAS**
-  - **Funcion para calcular el iva:** La base de datos debe contar con una función que sea capaz de calcular el iva de del pedido (19%) a partir de la suma de los subtotales.
+  - **Funcion para calcular el iva:** La base de datos debe contar con una función que sea capaz de calcular el iva de del pedido (12%) a partir de la suma de los subtotales.
   - **Funcion de alerta de stock:**  Retorna un mensaje indicando si hay suficiente stock antes de confirmar el pedido.
 
 **2. TRIGGERS REQUERIDOS**
@@ -73,4 +76,5 @@ Diseñar e implementar una base de datos relacional en MySQL que soporte la gest
   - EL dpi debe contiene 13 dígitos
   - Los precios se manejarán en Quetzales.
   - La capacidad de almacenaniento de las sedes será en unidades.
-  
+  - Los numeros de teléfono contienen 8 dígitos.
+  - Datos sintéticos Orientados a Guatemala
