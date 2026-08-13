@@ -1,4 +1,4 @@
---  FUNCION: Calcula el total con IVA del pedido (19%) a partir de la suma de subtotales.
+--  FUNCION: Calcula el total con IVA del pedido (12%) a partir de la suma de subtotales.
 
 DELIMITER //
 CREATE FUNCTION fn_calcular_total_con_iva(p_id_pedido INT)
