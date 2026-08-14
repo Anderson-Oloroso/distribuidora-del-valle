@@ -139,4 +139,4 @@ distribuidora-del-valle/
 ## 👨‍💻 Autor
 - **Henrik Anderson Oloroso García**
 
-### Ultima modificación: _13/08/2026_
+### Ultima modificación: _14/08/2026_
