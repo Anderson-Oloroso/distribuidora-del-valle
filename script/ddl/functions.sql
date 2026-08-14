@@ -31,8 +31,8 @@ BEGIN
     DECLARE message VARCHAR(100);
     
     -- 
-    SET antidad_act = (SELECT stock_actual FROM productos WHERE id_producto = p_id_producto);
-	SET cantidad_min = (SELECT stock_minimo FROM productos WHERE id_producto = p_id_producto);
+    SET cantidad_act = (SELECT stock_actual FROM productos WHERE id_producto = p_id_producto);
+	  SET cantidad_min = (SELECT stock_minimo FROM productos WHERE id_producto = p_id_producto);
     
     IF cantidad_act - p_cantidad <= cantidad_min AND cantidad_act - p_cantidad != 0 THEN
 		SET message = '¡Alerta! Queda poco stock, se recomienda comprar más productos';

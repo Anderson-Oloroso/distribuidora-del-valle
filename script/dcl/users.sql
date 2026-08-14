@@ -29,8 +29,8 @@ FLUSH PRIVILEGES;
 -- ==============================================
 CREATE USER 'auditor_fiscal'@'localhost' IDENTIFIED BY 'AuDit_Fic4l@';
 
-GRANT SELECT ON distribuidora_del_valle.productos TO 'gestor_inventario'@'localhost';
-GRANT SELECT ON distribuidora_del_valle.pedidos TO 'gestor_inventario'@'localhost';
-GRANT SELECT ON distribuidora_del_valle.auditoria_precios TO 'gestor_inventario'@'localhost';
+GRANT SELECT ON distribuidora_del_valle.productos TO 'auditor_fiscal'@'localhost';
+GRANT SELECT ON distribuidora_del_valle.pedidos TO 'auditor_fiscal'@'localhost';
+GRANT SELECT ON distribuidora_del_valle.auditoria_precios TO 'auditor_fiscal'@'localhost';
 
 FLUSH PRIVILEGES;
