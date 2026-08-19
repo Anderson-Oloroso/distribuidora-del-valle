@@ -1,7 +1,7 @@
 --  FUNCION: Calcula el total con IVA del pedido (12%) a partir de la suma de subtotales.
 
 DELIMITER //
-CREATE FUNCTION fn_calcular_total_con_iva(p_id_pedido INT)
+CREATE FUNCTION fn_calcular_total_con_iva(p_id_pedido INT, p_iva FLOAT)
 RETURNS FLOAT
 DETERMINISTIC
 BEGIN 
@@ -9,7 +9,7 @@ BEGIN
     DECLARE total_subtotal FLOAT;
 
 	SET total_subtotal = (SELECT SUM(subtotal) FROM detalle_pedidos WHERE id_pedido = p_id_pedido);
-    SET total_con_iva = total_subtotal + (total_subtotal * 0.12);
+    SET total_con_iva = total_subtotal + (total_subtotal * p_iva);
     
     RETURN total_con_iva;
 END //
@@ -17,7 +17,9 @@ END //
 DELIMITER ;
 
 SELECT SUM(subtotal) FROM detalle_pedidos WHERE id_pedido = 5;
-SELECT fn_calcular_total_con_iva(5);
+
+-- IVA: Porcentaje de iva precalculado, si es 12% colocar 0.12
+SELECT fn_calcular_total_con_iva(5, 0.12);
 
 -- FUNCION: Retorna un mensaje indicando si hay suficiente stock antes de confirmar el pedido.
 DESC productos;
