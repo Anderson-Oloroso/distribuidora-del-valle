@@ -31,3 +31,11 @@ CREATE VIEW vista_de_clientes_activos AS
         ORDER BY COUNT(P.id_pedido) DESC;
 
 SELECT * FROM vista_clientes_activos;
+
+-- Consulta analìtica
+SELECT CONCAT(C.nombre,' ',C.apellido) 'Nombre', COUNT(P.id_pedido) 'Cant. Pedidos', ROUND(SUM(P.total_con_iva),2) 'Total'
+	FROM pedidos P INNER JOIN clientes C ON P.id_cliente = C.id_cliente
+    WHERE YEAR(P.fecha_pedido) = '2026'
+    GROUP BY C.nombre, C.apellido
+    ORDER BY ROUND(SUM(P.total_con_iva)) DESC
+    LIMIT 5;
