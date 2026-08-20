@@ -39,3 +39,25 @@ SELECT CONCAT(C.nombre,' ',C.apellido) 'Nombre', COUNT(P.id_pedido) 'Cant. Pedid
     GROUP BY C.nombre, C.apellido
     ORDER BY ROUND(SUM(P.total_con_iva)) DESC
     LIMIT 5;
+    
+-- Trigger para registrar un nuevo pedido en la tabla auditoria_pedidos
+DELIMITER &&
+CREATE TRIGGER registrar_nuevo_pedido_trigger
+AFTER INSERT ON pedidos
+FOR EACH ROW
+BEGIN   
+    INSERT INTO auditoria_pedidos (id_pedido, id_cliente, fecha_registro, total_pedido, usuario_responsable)
+    VALUES (NEW.id_pedido, NEW.id_cliente, NOW(), NEW.total_con_iva, 'gesor_inventario');
+END &&
+DELIMITER ;
+
+CREATE TABLE IF NOT EXISTS auditoria_pedidos (
+    id_auditoria INT AUTO_INCREMENT PRIMARY KEY,
+    id_pedido INT NOT NULL,
+    id_cliente INT NOT NULL,
+    fecha_registro DATETIME NOT NULL,
+    total_pedido FLOAT NOT NULL,
+    usuario_responsable VARCHAR(50) NOT NULL
+);
+
+INSERT INTO pedidos (id_cliente, fecha_pedido, total_con_iva) VALUES (1, '2026-02-12', 150.75);
