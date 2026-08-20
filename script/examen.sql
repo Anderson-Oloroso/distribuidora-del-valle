@@ -22,7 +22,7 @@ SET @fecha_final = '2026-02-15';
 
 SELECT total_pedidos_cliente_periodo(1, @fecha_inicio, @fecha_final);
 
--- Crear vista vista_clientes_activos
+-- Crear vista vista_de_clientes_activos
 CREATE VIEW vista_de_clientes_activos AS
 	SELECT C.id_cliente, CONCAT(C.nombre, ' ', C.apellido) 'Nombre completo', C.telefono, COUNT(P.id_pedido) 'Pedidos realizados'
 		FROM clientes C INNER JOIN pedidos P ON P.id_cliente = C.id_cliente
