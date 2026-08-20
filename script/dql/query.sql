@@ -7,6 +7,21 @@ DESC pedidos;
 SELECT * FROM pedidos;
 SELECT * FROM pedidos WHERE DATE_FORMAT(fecha_pedido,'%y-%m-%d') BETWEEN '26-02-10' AND '26-02-15';
 
+-- Crear consulta preparada, usando la consulta de los pedidos realizados por fecha mas completa
+
+PREPARE stmt_pedidos_fecha FROM 
+    'SELECT P.id_pedido, DATE(P.fecha_pedido) AS fecha_pedido ,CONCAT(C.nombre, '' '', C.apellido) ''Cliente'', S.nombre_sede, P.total_con_iva, P.total_sin_iva
+	FROM clientes C INNER JOIN (sedes S INNER JOIN pedidos P ON S.id_sede = P.id_sede) ON C.id_cliente = P.id_cliente
+		WHERE P.fecha_pedido BETWEEN ? AND ?
+            ORDER BY P.fecha_pedido DESC';
+
+SET @fecha_inicio = '2026-02-10';
+SET @fecha_fin = '2026-02-15';
+
+EXECUTE stmt_pedidos_fecha USING @fecha_inicio, @fecha_fin;
+
+DEALLOCATE PREPARE stmt_pedidos_fecha;
+
 -- Listar los productos más vendidos (con JOIN y GROUP BY).
 DESC productos;
 DESC pedidos;
