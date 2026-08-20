@@ -40,3 +40,25 @@ SELECT * FROM productos;
 UPDATE productos SET precio = 12.5 WHERE id_producto = 1;
 
 SELECT * FROM auditoria_precios;
+
+-- Antes de insertar datos en detalle_pedidos, valide si el stock actual alcanza
+DESC productos;
+DESC detalle_pedidos;
+DELIMITER //
+CREATE TRIGGER tr_validar_stock_before_insert
+BEFORE INSERT on detalle_pedidos
+FOR EACH ROW
+BEGIN
+	DECLARE v_stock INT;
+    SELECT stock_actual INTO v_stock FROM productos WHERE id_producto = NEW.id_producto; 	
+    
+    IF v_stock IS NULL THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error: El producto no existe';
+    END IF;
+    IF NEW.cantidad <= 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error: La cantidad debe ser mayor que cero';
+    END IF;
+    IF v_stock < NEW.cantidad THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error: Stock insuficiente. Cancelando pedido';
+    END IF;
+END//
